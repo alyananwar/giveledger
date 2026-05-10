@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
-
-const DEMO_ORG_ID = "demo-org-food-for-all";
+import { DEMO_ORG_ID } from "@/lib/demo-data";
+import { isSupabaseConfigured, supabaseAdmin } from "@/lib/supabase";
 
 // PayPal IPN endpoint — configure in PayPal → Account Settings → Notifications
 // URL: https://your-domain.com/api/webhooks/paypal
@@ -32,6 +31,10 @@ export async function POST(req: NextRequest) {
   const payerEmail = params.get("payer_email") || "";
   const itemName = params.get("item_name") || "";
   const txnId = params.get("txn_id") || "";
+
+  if (!isSupabaseConfigured()) {
+    return new NextResponse("OK", { status: 200 });
+  }
 
   try {
     await supabaseAdmin.from("donations").insert({

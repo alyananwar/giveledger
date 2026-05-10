@@ -7,6 +7,10 @@ const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const fallbackUrl = "https://example.supabase.co";
 const fallbackKey = "supabase-not-configured";
 
+export function isSupabaseConfigured() {
+  return !!(url && serviceKey);
+}
+
 // Server-side client (bypasses RLS — API routes only)
 export const supabaseAdmin = createClient(
   url || fallbackUrl,

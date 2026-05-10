@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
-
-const DEMO_ORG_ID = "demo-org-food-for-all";
+import { addDemoDonation, DEMO_ORG_ID } from "@/lib/demo-data";
+import { isSupabaseConfigured, supabaseAdmin } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   const { rows } = await req.json();
@@ -32,6 +31,29 @@ export async function POST(req: NextRequest) {
         : new Date().toISOString(),
     }),
   );
+
+  if (!isSupabaseConfigured()) {
+    docs.forEach((doc) =>
+      addDemoDonation({
+        ...doc,
+        amount: doc.amount,
+        currency: doc.currency,
+        source: doc.source,
+        donor_name: doc.donor_name,
+        notes: doc.notes,
+        photo_url: null,
+        category: null,
+        subcategory: null,
+        quantity: null,
+        unit: null,
+        condition: null,
+        estimated_value_usd: null,
+        ai_analysis: null,
+      }),
+    );
+
+    return NextResponse.json({ imported: docs.length, demoMode: true });
+  }
 
   const { error } = await supabaseAdmin.from("donations").insert(docs);
 

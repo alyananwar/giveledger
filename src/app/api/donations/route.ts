@@ -1,12 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
-
-const DEMO_ORG_ID = "demo-org-food-for-all";
+import {
+  addDemoDonation,
+  DEMO_ORG_ID,
+  getDemoDonations,
+} from "@/lib/demo-data";
+import { isSupabaseConfigured, supabaseAdmin } from "@/lib/supabase";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type");
   const limit = parseInt(searchParams.get("limit") || "50");
+
+  if (!isSupabaseConfigured()) {
+    const demoDonations = getDemoDonations();
+    const donations = type
+      ? demoDonations.filter((d) => d.type === type)
+      : demoDonations;
+
+    return NextResponse.json({ donations: donations.slice(0, limit) });
+  }
 
   let query = supabaseAdmin
     .from("donations")
@@ -21,7 +33,7 @@ export async function GET(req: NextRequest) {
 
   if (error) {
     console.error("Donations fetch error:", error);
-    return NextResponse.json({ donations: DEMO_DONATIONS });
+    return NextResponse.json({ donations: getDemoDonations().slice(0, limit) });
   }
 
   return NextResponse.json({ donations: data });
@@ -51,6 +63,17 @@ export async function POST(req: NextRequest) {
       donated_at: body.donatedAt || new Date().toISOString(),
     };
 
+    if (!isSupabaseConfigured()) {
+      const donation = addDemoDonation(row);
+      return NextResponse.json(
+        {
+          donation,
+          demoMode: true,
+        },
+        { status: 201 },
+      );
+    }
+
     const { data, error } = await supabaseAdmin
       .from("donations")
       .insert(row)
@@ -74,78 +97,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
-const DEMO_DONATIONS = [
-  {
-    id: "d1",
-    org_id: DEMO_ORG_ID,
-    type: "financial",
-    amount: 5000,
-    currency: "USD",
-    source: "Stripe",
-    donor_name: "Acme Corp",
-    human_confirmed: true,
-    donated_at: new Date(Date.now() - 1 * 86400000).toISOString(),
-  },
-  {
-    id: "d2",
-    org_id: DEMO_ORG_ID,
-    type: "physical",
-    category: "food",
-    subcategory: "canned goods",
-    quantity: 240,
-    unit: "items",
-    estimated_value_usd: 360,
-    condition: "good",
-    human_confirmed: true,
-    donated_at: new Date(Date.now() - 2 * 86400000).toISOString(),
-  },
-  {
-    id: "d3",
-    org_id: DEMO_ORG_ID,
-    type: "financial",
-    amount: 1200,
-    currency: "USD",
-    source: "PayPal",
-    donor_name: "Jane Smith",
-    human_confirmed: true,
-    donated_at: new Date(Date.now() - 3 * 86400000).toISOString(),
-  },
-  {
-    id: "d4",
-    org_id: DEMO_ORG_ID,
-    type: "physical",
-    category: "clothing",
-    subcategory: "winter coats",
-    quantity: 85,
-    unit: "items",
-    estimated_value_usd: 2125,
-    condition: "good",
-    human_confirmed: true,
-    donated_at: new Date(Date.now() - 4 * 86400000).toISOString(),
-  },
-  {
-    id: "d5",
-    org_id: DEMO_ORG_ID,
-    type: "financial",
-    amount: 750,
-    currency: "USD",
-    source: "Check",
-    donor_name: "Anonymous",
-    human_confirmed: true,
-    donated_at: new Date(Date.now() - 5 * 86400000).toISOString(),
-  },
-  {
-    id: "d6",
-    org_id: DEMO_ORG_ID,
-    type: "physical",
-    category: "hygiene",
-    subcategory: "toiletries",
-    quantity: 120,
-    unit: "items",
-    estimated_value_usd: 480,
-    condition: "new",
-    human_confirmed: true,
-    donated_at: new Date(Date.now() - 6 * 86400000).toISOString(),
-  },
-];

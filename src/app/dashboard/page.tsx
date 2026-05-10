@@ -19,6 +19,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const CATEGORY_COLORS: Record<string, string> = {
   food: "bg-gl-gold",
   clothing: "bg-gl-purple",

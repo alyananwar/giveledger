@@ -52,7 +52,6 @@ const CATEGORIES = [
 export default function LogPhysicalPage() {
   const router = useRouter();
   const [preview, setPreview] = useState<string | null>(null);
-  const [base64, setBase64] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<AIAnalysis | null>(null);
   const [saving, setSaving] = useState(false);
@@ -71,7 +70,6 @@ export default function LogPhysicalPage() {
   });
 
   const runAnalysis = useCallback(async (b64: string, mimeType: string) => {
-    setBase64(b64);
     setAnalysis(null);
     setAnalyzing(true);
     try {
