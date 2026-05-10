@@ -22,6 +22,10 @@ GiveLedger turns those scattered records into an auditable impact ledger.
 6. Visit `/history` to show the combined donation record.
 7. Optionally visit `/import` to preview CSV import support.
 
+## Demo Script
+
+Use [`DEMO_SCRIPT.txt`](./DEMO_SCRIPT.txt) for the two-person live presentation script, suggested timing, click path, and backup Q&A lines.
+
 ## Features
 
 - AI photo analysis for physical donations using Anthropic Claude

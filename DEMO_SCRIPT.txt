@@ -1,0 +1,133 @@
+GiveLedger Live Demo Script
+HackDavis 2026
+
+Recommended timing: 3 to 4 minutes
+Suggested roles: Presenter 1 drives the story. Presenter 2 drives the product.
+
+Opening
+
+Presenter 1:
+"Hi, we are demoing GiveLedger, an AI-powered donation ledger for small nonprofits.
+
+Small nonprofit teams often receive two very different kinds of support: money and physical goods. The problem is that those records usually live in separate places. Online gifts might be in PayPal, Stripe, or a CSV export, while food, clothing, and hygiene donations might be written down manually or tracked in a spreadsheet.
+
+That makes it hard to answer a basic question: what impact did we actually receive, and can we report it clearly to donors, grant makers, or the board?"
+
+Presenter 2:
+"GiveLedger brings those records together. The app lets a nonprofit log financial donations, import donation CSVs, and use AI to help estimate physical donations from a photo. A human still confirms the final values, so the workflow is fast but accountable."
+
+Landing Page
+
+Presenter 2:
+"We will start on the landing page. This frames the product around one goal: turning scattered donation records into an auditable impact ledger."
+
+Presenter 1:
+"The key point is that GiveLedger is not just a tracker for money. It treats physical goods as first-class donations too."
+
+Dashboard
+
+Presenter 2:
+"Now we will open the dashboard."
+
+Suggested path:
+http://localhost:3000/dashboard
+
+Presenter 2:
+"The dashboard shows the total financial donations, estimated physical donation value, recent activity, trend data, and category breakdowns. For a nonprofit, this is the snapshot they need before writing an impact update or preparing a grant report."
+
+Presenter 1:
+"This is useful because it puts money and in-kind support in one place. A food pantry, student mutual aid group, or community nonprofit can see both cash and goods without manually stitching together spreadsheets."
+
+Financial Donation Demo
+
+Presenter 2:
+"Next, we will log a financial donation."
+
+Suggested path:
+http://localhost:3000/log/financial
+
+Suggested demo entry:
+- Amount: 100
+- Source: PayPal or Stripe
+- Donor name: Demo Donor
+- Notes: Live demo donation
+
+Presenter 2:
+"I am entering a 100 dollar donation, choosing the source, and saving it."
+
+After saving, return to:
+http://localhost:3000/dashboard
+
+Presenter 2:
+"Back on the dashboard, the total raised and recent activity update. That gives the nonprofit immediate confirmation that the donation is part of the same ledger."
+
+Presenter 1:
+"For the hackathon prototype, this is especially important because it proves the core loop: log a donation, see impact update, and keep a unified record."
+
+Physical Donation Demo
+
+Presenter 2:
+"Now we will log a physical donation."
+
+Suggested path:
+http://localhost:3000/log/physical
+
+Presenter 2:
+"Here, a volunteer can upload or capture a photo of donated goods. The AI suggests a category, quantity, condition, and fair-market estimate."
+
+Presenter 1:
+"The important design choice is that the AI does not silently write the final record. It suggests values, then a human confirms or edits them. That keeps the tool practical for nonprofit workflows where trust and auditability matter."
+
+Presenter 2:
+"Once confirmed, the item is saved into the same donation ledger as the financial gifts."
+
+After saving, return to:
+http://localhost:3000/dashboard
+
+Presenter 2:
+"Now the dashboard reflects both financial support and estimated physical value. The activity feed shows the new record alongside the financial donation."
+
+History And Import
+
+Presenter 2:
+"We can also open the history page."
+
+Suggested path:
+http://localhost:3000/history
+
+Presenter 2:
+"This gives the organization a combined record they can filter and review."
+
+Optional path:
+http://localhost:3000/import
+
+Presenter 1:
+"The prototype also includes CSV import support for common donation exports. That matters because a real nonprofit probably already has donation data somewhere else, and we do not want them to start from zero."
+
+Closing
+
+Presenter 1:
+"GiveLedger is built around a simple idea: nonprofits should not need separate tools for cash donations, physical donations, and impact reporting."
+
+Presenter 2:
+"In this prototype, we completed the core workflow: financial logging, AI-assisted physical logging, human confirmation, CSV import preview, and a dashboard that updates from the shared donation ledger."
+
+Presenter 1:
+"If we continued after the hackathon, our next priorities would be organization accounts, role-based volunteer access, exportable grant reports, durable photo evidence, and a full audit trail showing AI suggestions, human edits, and confirmed records."
+
+Presenter 2:
+"Our final takeaway is that GiveLedger helps small nonprofits turn messy donation inputs into clear, reportable impact."
+
+Backup Lines For Questions
+
+If asked about AI accuracy:
+"We intentionally keep a human confirmation step. The AI speeds up categorization and estimation, but the nonprofit owns the final confirmed record."
+
+If asked about privacy:
+"In a production version, we would add organization accounts, role-based access, durable storage rules, and retention controls for uploaded photos."
+
+If asked what is fully working:
+"The prototype supports the full demo loop: manual financial logging, physical donation logging, dashboard updates, recent activity, history, and CSV import preview. External services like Supabase and Anthropic can be configured for live persistence and real photo analysis, while demo fallbacks keep the judging flow reliable."
+
+If asked why this matters:
+"Small nonprofits need credible impact records, especially for donor communication and grant reporting. GiveLedger lowers the admin burden while making the records easier to review."
