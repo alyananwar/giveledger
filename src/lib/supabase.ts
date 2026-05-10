@@ -18,4 +18,7 @@ export const supabaseAdmin = createClient(
 );
 
 // Client-side client
-export const supabase = createClient(url || fallbackUrl, anonKey || fallbackKey);
+export const supabase = createClient(
+  url || fallbackUrl,
+  anonKey || fallbackKey,
+);

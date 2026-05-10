@@ -80,7 +80,8 @@ export async function getAllDonations(type?: string): Promise<DonationRow[]> {
 }
 
 export async function getChartData(days = 30): Promise<ChartPoint[]> {
-  if (!isSupabaseConfigured()) return buildChartFromRows(getDemoDonations(), days);
+  if (!isSupabaseConfigured())
+    return buildChartFromRows(getDemoDonations(), days);
 
   const from = new Date();
   from.setDate(from.getDate() - (days - 1));
@@ -99,7 +100,8 @@ export async function getChartData(days = 30): Promise<ChartPoint[]> {
 }
 
 export async function getCategoryBreakdown() {
-  if (!isSupabaseConfigured()) return buildCategoryBreakdown(getDemoDonations());
+  if (!isSupabaseConfigured())
+    return buildCategoryBreakdown(getDemoDonations());
 
   const { data, error } = await supabaseAdmin
     .from("donations")

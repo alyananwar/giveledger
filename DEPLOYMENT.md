@@ -2,9 +2,10 @@
 
 ## Vercel Setup
 
-\*\*Root Directory must be set to `giveledger` (not the repo root).
+**Root Directory: leave blank** (the Next.js app is at the repo root).
 
-In Vercel project settings → General → Root Directory must be set to `giveledger`
+Repo: `github.com/alyananwar/giveledger` — import this into a new Vercel project.
+Framework will be auto-detected as Next.js. No Root Directory config needed.
 
 ## Required Environment Variables
 
