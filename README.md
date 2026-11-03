@@ -1,5 +1,9 @@
 # GiveLedger
 
+<p align="center">
+  <img src="docs/demo.gif" alt="GiveLedger demo: landing page, impact dashboard, AI photo log, and donation history" width="800">
+</p>
+
 AI-powered donation tracking for small nonprofits.
 
 GiveLedger helps nonprofits record both financial gifts and physical donations in one place. Volunteers can log money manually, import CSV exports from common donation platforms, or snap a photo of donated goods and let Claude suggest the category, quantity, condition, and fair-market estimate before a human confirms the record.
